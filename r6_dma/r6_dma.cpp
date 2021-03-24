@@ -211,7 +211,7 @@ void unlock_all(WinProcess &proc, const R6Data& data)
 {
 	if(!UNLOCK_ALL) return;
 	uint8_t shellcode[] = { 65, 198, 70, 81, 0, 144 };
-	proc.WriteMem(data.base + 0x271470B, shellcode, sizeof(shellcode));
+	proc.Write(data.base + 0x271470B, shellcode, sizeof(shellcode));
 	printf("Unlock all executed\n");
 }
 

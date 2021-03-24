@@ -187,11 +187,6 @@ class WinProcess
 	ssize_t Read(uint64_t address, void* buffer, size_t sz);
 	ssize_t Write(uint64_t address, void* buffer, size_t sz);
 
-	void ReadMem(uint64_t address, uint64_t remote, int len)
-	{
-		VMemRead(&ctx->process, proc.dirBase, remote, address, len);	
-	}
-
 	template<typename T>
 	T Read(uint64_t address)
 	{
@@ -204,12 +199,6 @@ class WinProcess
 	void Write(uint64_t address, const T& value)
 	{
 		VMemWrite(&ctx->process, proc.dirBase, (uint64_t)&value, address, sizeof(T));
-	}
-
-	template<typename T>
-	void WriteMem(uint64_t address, T value[], int len)
-	{
-		VMemWrite(&ctx->process, proc.dirBase, (uint64_t)value, address, len);
 	}
 
 	WinProc proc;
@@ -226,6 +215,7 @@ class WinProcessList
 	using iterator = WinListIterator<WinProcessList>;
 	void Refresh();
 	WinProcess* FindProc(const char* name);
+	WinProcess* FindProcNoCase(const char* name);
 	iterator begin();
 	iterator end();
 	WinProcessList();
